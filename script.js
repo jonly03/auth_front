@@ -3,6 +3,8 @@ const API_BASE_URL = "https://alan-auth.herokuapp.com";
 const LOCAL_STORAGE_AUTH_ITEM = "authEmail";
 const LOGIN_TEXT = "Login";
 const LOGOUT_TEXT = "Logout";
+const PLACEHOLDER_PROFILE_PHOTO =
+  "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png";
 
 authButton.addEventListener("click", handleAuth);
 function handleAuth() {
@@ -58,7 +60,22 @@ function checkAuth() {
 
   fetch(`${API_BASE_URL}/userinfo?accessToken=${access_token}`)
     .then((res) => res.json())
-    .then((data) => console.log(data))
+    .then((data) => {
+      const { email, name, picture } = data;
+
+      if (email) {
+        localStorage.setItem(LOCAL_STORAGE_AUTH_ITEM, email);
+
+        toggleAuthButton();
+
+        document.getElementById("greeting").innerHTML = `
+            <img src=${
+              picture ? picture : PLACEHOLDER_PROFILE_PHOTO
+            } class="profile_pic"/>
+            <span>Welcome back${name ? "," : ""} ${name ? name : ""}</span>
+            `;
+      }
+    })
     .catch((error) => {
       console.log(error);
     });
