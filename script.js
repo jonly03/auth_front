@@ -19,6 +19,7 @@ function handleAuth() {
     fetch(`${API_BASE_URL}/signoff`).then((res) => {
       localStorage.removeItem(LOCAL_STORAGE_AUTH_ITEM);
       toggleAuthButton();
+      document.getElementById("greeting").innerHTML = "";
     });
   }
 }
