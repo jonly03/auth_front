@@ -16,7 +16,7 @@ function handleAuth() {
   } else {
     // user attempting to logout
     // clear the localstorage and call our logout endpoint
-    fetch(`${API_BASE_URL}/logout`).then((res) => {
+    fetch(`${API_BASE_URL}/signoff`).then((res) => {
       localStorage.removeItem(LOCAL_STORAGE_AUTH_ITEM);
       toggleAuthButton();
     });
