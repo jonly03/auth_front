@@ -7,8 +7,19 @@ function handleAuth() {
   const id = localStorage.getItem(LOCAL_STORAGE_AUTH_ITEM);
 
   if (!id) {
-    window.location =
-      "https://dev-v8yhc0o7.us.auth0.com/authorize?response_type=token&client_id=tM4rxIGpbjNLFjuWxNcojBsOCy1hIQzP&redirect_uri=https://nellysugu.com/auth_front/";
+    // window.location =
+    //   "https://dev-v8yhc0o7.us.auth0.com/authorize?response_type=token&client_id=tM4rxIGpbjNLFjuWxNcojBsOCy1hIQzP&redirect_uri=https://nellysugu.com/auth_front/";
+    fetch(`${API_BASE_URL}/myLogin`)
+      .then((res) => res.json())
+      .then(({ isAuthenticated, user }) => {
+        if (!isAuthenticated) {
+          authButton.innerText = "Login";
+          console.log("Failed to log in");
+        } else {
+          authButton.innerText = "Logout";
+          console.log(user);
+        }
+      });
   } else {
     // user attempting to logout
     // clear the localstorage and call our logout endpoint
