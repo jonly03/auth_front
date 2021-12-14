@@ -7,16 +7,8 @@ function handleAuth() {
   const id = localStorage.getItem(LOCAL_STORAGE_AUTH_ITEM);
 
   if (!id) {
-    // user attempting to login
-    fetch(`${API_BASE_URL}/myLogin`, { method: "GET" })
-      .then((res) => res.json())
-      .then((data) => {
-        const { user } = data;
-        console.log(user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    window.location =
+      "https://dev-v8yhc0o7.us.auth0.com/authorize?response_type=token&client_id=tM4rxIGpbjNLFjuWxNcojBsOCy1hIQzP&redirect_uri=https://nellysugu.com/auth_front/";
   } else {
     // user attempting to logout
     // clear the localstorage and call our logout endpoint
@@ -31,11 +23,18 @@ function handleAuth() {
 // on load, check if there is an email in our localstorage
 // if no email in our local storage, force user to login again
 function checkAuth() {
-  const id = localStorage.getItem(LOCAL_STORAGE_AUTH_ITEM);
+  const email = localStorage.getItem(LOCAL_STORAGE_AUTH_ITEM);
 
-  if (!id) {
-    authButton.innerText = "Login";
-  } else {
-    authButton.innerText = "Logout";
-  }
+  fetch(`${API_BASE_URL}/loggedIn`)
+    .then((res) => res.json())
+    .then(({ isAuthenticated, user }) => {
+      if (!isAuthenticated) {
+        authButton.innerText = "Login";
+      } else {
+        authButton.innerText = "Logout";
+        console.log(user);
+      }
+    });
 }
+
+checkAuth();
