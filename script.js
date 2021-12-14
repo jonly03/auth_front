@@ -20,6 +20,8 @@ function handleAuth() {
       localStorage.removeItem(LOCAL_STORAGE_AUTH_ITEM);
       toggleAuthButton();
       document.getElementById("greeting").innerHTML = "";
+
+      window.location = "https://www.nellysugu.com/auth_front/";
     });
   }
 }
