@@ -8,7 +8,7 @@ authButton.addEventListener("click", handleAuth);
 function handleAuth() {
   const email = localStorage.getItem(LOCAL_STORAGE_AUTH_ITEM);
 
-  if (!email) {
+  if (email === null) {
     window.location =
       "https://dev-v8yhc0o7.us.auth0.com/authorize?response_type=token&client_id=tM4rxIGpbjNLFjuWxNcojBsOCy1hIQzP&redirect_uri=https://www.nellysugu.com/auth_front/";
   } else {
