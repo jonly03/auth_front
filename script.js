@@ -56,7 +56,7 @@ function checkAuth() {
   const endIdx = url.indexOf("&");
   const access_token = url.substring(startIdx, endIdx);
 
-  fetch(`localhost:3000/userinfo?accessToken=${access_token}`)
+  fetch(`http://localhost:3000/userinfo?accessToken=${access_token}`)
     .then((res) => res.json())
     .then((data) => console.log(data))
     .catch((error) => {
